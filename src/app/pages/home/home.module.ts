@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 
 import { FacturaComponent } from "../factura/factura.component";
 import { RouterModule, Routes } from '@angular/router';
+import { ComponentsModule } from "../../components/components.module";
 //deveztreme
 import { DevextremeModule } from "../../components/devextreme/devextreme.module";
 
@@ -25,6 +26,7 @@ const routes: Routes = [
   ],
   imports: [
     DevextremeModule,
+    ComponentsModule,
     CommonModule,        
     RouterModule.forChild(routes)
   ]

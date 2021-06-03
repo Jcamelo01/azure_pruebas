@@ -1,2 +1,24 @@
-<router-outlet></router-outlet>
-<p>home works!</p>
+<!-- <router-outlet></router-outlet> -->
+<div class="body-container">
+    <div class="dx-fieldset">
+        <div class="dx-field">
+            <div class="dx-field-value" data-toggle="tooltip" data-placement="bottom" [title]="'Crear Factura'">
+                <dx-button icon="plus" (onClick)="onCreateClick()">
+                </dx-button>
+            </div>
+        </div>
+    </div>
+    <!-- lista de facturas -->
+    <div [hidden]="gridResultFactura == null || gridResultFactura.length == 0">
+        <dx-data-grid [dataSource]="gridResultFactura" [hoverStateEnabled]="true" [showBorders]="true"
+            [showRowLines]="true" ophGridHeaderColor ophGridHeaderTextColor>
+            <dxo-paging [pageSize]="8"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[8, 12, 14]"></dxo-pager>
+            <dxi-column caption="N° Factura" dataField="idFacturaDTO" alignment="center"></dxi-column>
+            <dxi-column caption="Cliente" dataField="personaDTO" alignment="center"></dxi-column>
+            <dxi-column caption="Fecha Facturación" dataField="fechaVentaDTO" alignment="center"></dxi-column>
+            <dxi-column caption="Valor" dataField="valorDTO" alignment="center"></dxi-column>
+        </dx-data-grid>
+    </div>
+
+</div>

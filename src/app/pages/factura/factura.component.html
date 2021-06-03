@@ -1,1 +1,77 @@
-<p>factura works!</p>
+<!-- pop-pu -->
+<dx-popup [width]="450" [height]="120" title="Validación de Cliente" [showTitle]="false" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [(visible)]="ModalVisible">
+    <!-- formulario   -->
+    <div class="pupup-container-body">
+        <form (submit)="onClientSutmit($event)">
+            <dx-form [formData]="formDataCliete" showColonAfterLabel="true" minColWidth="50">
+                <dxi-item itemType="group" alignment="bottom" [colCount]="1">
+                    <dxi-item [colSpan]="1" dataField="idDTO" [label]="{text:'N° Documento'}">
+                    </dxi-item>
+                    <dxi-item [colSpan]="1" itemType="button" [buttonOptions]="{                      
+                    text: 'Validar',
+                    type: 'success',
+                    hoverStateEnabled:'true',
+                    alignment: 'right',
+                    useSubmitBehavior: true,
+                    width:'30%'}" verticalAlignment="bottom">
+                    </dxi-item>
+                </dxi-item>
+            </dx-form>
+        </form>
+    </div>
+</dx-popup>
+
+<!-- formulario -->
+<div class="form-data">
+    <form (submit)="onFormSubmitDetalle($event)">
+        <dx-form [formData]="formDataFactura" labelLocation="top" showColonAfterLabel="true" minColWidth="200">
+            <dxi-item itemType="group" alignment="bottom" [colCount]="4">
+                <dxi-item [colSpan]="1" dataField="personaDTO" [label]="{text:'Cliente'}"
+                    [editorOptions]="{ disabled: true}">
+                </dxi-item>
+                <dxi-item dataField="fechaVentaDTO" editorType="dxDateBox" [label]="{ text: 'Fecha' }"
+                    [editorOptions]="{ disabled: true, type: 'datetime', displayFormat: 'dd/MM/yyyy HH:mm' }">
+                </dxi-item>
+                <dxi-item [colSpan]="1" dataField="valorUnitarioDTO" [label]="{text:'Valor Unitario'}"
+                    [editorOptions]="{ disabled: true}">
+                </dxi-item>
+                <dxi-item [colSpan]="1" dataField="valorDTO" [label]="{text:'Valor Total'}"
+                    [editorOptions]="{ disabled: true}">
+                </dxi-item>
+                <dxi-item itemType="group" alignment="bottom" [colSpan]="1" [label]="{ text:'Producto' }">
+                    <div *dxTemplate>
+                        <dx-select-box dataField="productoDTO" [dataSource]="productos" displayExpr="nombreDTO"
+                            valueExpr="nombreDTO" (onSelectionChanged)="onSelectType($event)" [showClearButton]="true"
+                            placeholder="Seleccione">
+                            <div *dxTemplate="let data of 'item'">
+                                {{data.nombreDTO}}
+                            </div>
+                            <dxi-validation-rule type="required"></dxi-validation-rule>
+                        </dx-select-box>
+                    </div>
+                </dxi-item>
+                <dxi-item [colSpan]="1" dataField="stockDTO" [label]="{text:'Stock'}"
+                    [editorOptions]="{ disabled: true}">
+                </dxi-item>
+                <dxi-item [colSpan]="1" dataField="cantidadDTO" [label]="{text:'Cantidad'}">
+                </dxi-item>
+
+                <dxi-item [colSpan]="1" itemType="button" [buttonOptions]="{                      
+                    text: 'Agregar',
+                    type: 'success',
+                    hoverStateEnabled:'true',
+                    alignment: 'right',
+                    useSubmitBehavior: true,
+                    width:'60%'}" verticalAlignment="bottom">
+                </dxi-item>
+            </dxi-item>
+        </dx-form>
+    </form>
+</div>
+<!-- maestro detalle -->
+<app-grid [detalleFactura]="detalleFactura" (borrarDetalle)="borrarDetalle($event)"></app-grid>
+<div class="button-save" *ngIf="detalleFactura.length > 0">
+    <dx-button text="Guardar" type="success" [width]="120" (onClick)="GuardarFactura()">
+    </dx-button>
+</div>
